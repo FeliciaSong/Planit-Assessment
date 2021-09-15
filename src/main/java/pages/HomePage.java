@@ -19,6 +19,13 @@ public class HomePage {
         return new ContactPage(driver);
     }
 
+    public ShopPage clickShop(){
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("nav-shop")));
+        clickLink("nav-shop");
+        return new ShopPage(driver);
+    }
+
     private void clickLink(String id){
         driver.findElement(By.id(id)).click();
     }

@@ -12,7 +12,7 @@ public class ContactPage {
     private By emailField = By.id("email");
     private By messageField = By.id("message");
     private By submitButton = By.linkText("Submit");
-
+    private By submitProgressBar = By.xpath("//div[@class='progress progress-info wait']/div[@class='bar']");
 
     public ContactPage (WebDriver driver){
         this.driver = driver;
@@ -34,6 +34,11 @@ public class ContactPage {
 
     public SuccessfulSubmissionPage clickSubmitButton(){
         driver.findElement(submitButton).click();
+        WebDriverWait waitProgressBarToShow = new WebDriverWait(driver, 5);
+        waitProgressBarToShow.until(ExpectedConditions.visibilityOfElementLocated(submitProgressBar));
+
+        WebDriverWait waitProgressBarToHide = new WebDriverWait(driver, 60);
+        waitProgressBarToHide.until(ExpectedConditions.invisibilityOfElementLocated(submitProgressBar));
         return new SuccessfulSubmissionPage(driver);
     }
 }

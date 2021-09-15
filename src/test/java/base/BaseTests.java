@@ -17,6 +17,7 @@ public class BaseTests {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
         driver = new ChromeDriver();
         goHome();
+        driver.manage().window().maximize();
     }
 
     @BeforeMethod
