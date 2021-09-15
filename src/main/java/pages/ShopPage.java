@@ -16,19 +16,20 @@ public class ShopPage {
         this.driver = driver;
     }
 
-    public void buyFunnyCow(){
+    public void buyFunnyCow(int noOfTimes){
         WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.presenceOfElementLocated(TeddyBear));
-        driver.findElement(FunnyCowBuy).click();
-//        WebDriverWait wait = new WebDriverWait(driver, 5);
-//        wait.until(ExpectedConditions.);
-        driver.findElement(FunnyCowBuy).click();
+        for (int i = 1; i <= noOfTimes; i++) {
+            driver.findElement(FunnyCowBuy).click();
+        }
     }
 
-    public void buyFluffyBunny(){
+    public void buyFluffyBunny(int noOfTimes){
         WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.presenceOfElementLocated(TeddyBear));
-        driver.findElement(FluffyBunnyBuy).click();
+        for (int i = 1; i <= noOfTimes; i++) {
+            driver.findElement(FluffyBunnyBuy).click();
+        }
     }
 
 

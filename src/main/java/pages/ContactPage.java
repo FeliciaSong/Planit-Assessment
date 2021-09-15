@@ -33,10 +33,14 @@ public class ContactPage {
     }
 
     public SuccessfulSubmissionPage clickSubmitButton(){
+        // Click submit button
         driver.findElement(submitButton).click();
+
+        // Wait till the progress bar is displayed
         WebDriverWait waitProgressBarToShow = new WebDriverWait(driver, 5);
         waitProgressBarToShow.until(ExpectedConditions.visibilityOfElementLocated(submitProgressBar));
 
+        // Wait till the progress bar is finished running and hidden - with random time span
         WebDriverWait waitProgressBarToHide = new WebDriverWait(driver, 60);
         waitProgressBarToHide.until(ExpectedConditions.invisibilityOfElementLocated(submitProgressBar));
         return new SuccessfulSubmissionPage(driver);

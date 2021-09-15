@@ -15,8 +15,11 @@ public class SuccessfulSubmissionPage {
     }
 
     public String getSuccessfulMessage(){
+        // Wait till the success submission alert is visible
         WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.visibilityOfElementLocated(submitSuccessAlert));
+
+        // Return submit success text
         return driver.findElement(submitSuccessAlert).getText();
     }
 }
