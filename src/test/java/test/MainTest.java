@@ -7,10 +7,9 @@ import pages.ContactPage;
 import pages.ShopPage;
 import pages.SuccessfulSubmissionPage;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
-
 import java.util.*;
+
+import static org.testng.Assert.*;
 
 public class MainTest extends BaseTests {
 
@@ -20,7 +19,6 @@ public class MainTest extends BaseTests {
         ContactPage contactPage = homePage.clickContact();
 
         // Fill in the mandatory fields
-        // TODO Field values to externalized
         contactPage.setForeName("Felicia");
         contactPage.setEmail("abc@email.com");
         contactPage.setMessage("I like this application.");
@@ -47,7 +45,7 @@ public class MainTest extends BaseTests {
         // Click Cart link
         CheckoutPage checkoutPage = shopPage.clickCart();
 
-        // Get items from cart
+        // Get the list of items' names from cart
         List<String> actualItems = checkoutPage.getItems();
 
         // Declare expected items data
@@ -58,7 +56,39 @@ public class MainTest extends BaseTests {
             }
         };
 
-        // Assert
+        // Assert items' names only.
         assertEquals(expectedItems, actualItems);
+
+        // TODO: Assert item quantities
+    }
+
+    @Test
+    public void testSubtotal(){
+        // Click shop link
+        ShopPage shopPage = homePage.clickShop();
+
+        // Click 2 times on "Stuffed Frog"
+        shopPage.buyStuffedFrog(2);
+
+        // Click 5 times on "Fluffy Bunny"
+        shopPage.buyFluffyBunny(5);
+
+        // Click 3 times on "Valentine Bear"
+        shopPage.buyValentineBear(3);
+
+        // Click Cart link
+        CheckoutPage checkoutPage = shopPage.clickCart();
+
+        // Get the item and total pairs from cart
+        Map<String, String> actualItemSubtotal = checkoutPage.getItemSubtotalCollection();
+
+        // Declare expected collection data
+        Map<String, String> expectedItemSubtotal = new HashMap<String, String>();
+        expectedItemSubtotal.put("Stuffed Frog", "$21.98");
+        expectedItemSubtotal.put("Fluffy Bunny", "$49.95");
+        expectedItemSubtotal.put("Valentine Bear", "$44.97");
+
+        // Assert collection
+        assertEqualsDeep(expectedItemSubtotal, actualItemSubtotal);
     }
 }

@@ -8,7 +8,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class SuccessfulSubmissionPage {
 
     private WebDriver driver;
-    private By submitSuccessAlert = By.xpath("//div[@ui-if='contactValidSubmit']/div[@class='alert alert-success']");
+    //private By submitSuccessAlert = By.xpath("//div[@ui-if='contactValidSubmit']/div[@class='alert alert-success']");
+    private By submitSuccessAlert = By.xpath("//div[contains(@class, 'alert-success')]");
 
     public SuccessfulSubmissionPage (WebDriver driver){
         this.driver = driver;
