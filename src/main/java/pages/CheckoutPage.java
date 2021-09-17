@@ -10,7 +10,6 @@ import java.util.*;
 public class CheckoutPage {
 
     private WebDriver driver;
-    private String linkXpath_Format = ".//a[contains(text(), '%s')]";
     private By itemNames = By.xpath("//tr[@ng-repeat='item in cart.items()']/td[1]");
     private By subtotals = By.xpath("//tr[@ng-repeat='item in cart.items()']/td[4]");
     private By quantities = By.xpath("//tr[@ng-repeat='item in cart.items()']/td[3]/input");
