@@ -34,11 +34,12 @@ public class CheckoutPage {
         return getStringsByColumn(quantities, GetValueTypeEnum.ByAttribute, "value");
     }
 
+    // Get a list of Strings in the column list, the method that can be reused to get string in different ways
     private List<String> getStringsByColumn(By columnList, GetValueTypeEnum valueType, String name) {
         List<String> itemName = new ArrayList<String>();
         List<WebElement> columnListResult = driver.findElements(columnList);
         for (WebElement w : columnListResult) {
-            String value = new String();
+            String value;
             switch (valueType) {
                 case ByAttribute:
                     value = w.getAttribute(name);
@@ -55,6 +56,7 @@ public class CheckoutPage {
         return itemName;
     }
 
+    // Empty cart method to be used in AfterMethod
     public void emptyCart(){
         if (driver.findElements(emptyCartButton).size() > 0){
             WebElement emptyCartButtonElement = driver.findElement(emptyCartButton);
@@ -62,6 +64,7 @@ public class CheckoutPage {
         }
     }
 
+    // Get Items' name and its corresponding subtotal
     public Map<String, String> getItemSubtotalCollection(){
         Map<String, String> itemSubtotals = new HashMap<String, String>();
         List<String> items = getItems();
