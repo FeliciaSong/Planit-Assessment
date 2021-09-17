@@ -3,7 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import constants.*;
 
 import java.util.*;
 
@@ -13,6 +13,7 @@ public class CheckoutPage {
     private String linkXpath_Format = ".//a[contains(text(), '%s')]";
     private By itemNames = By.xpath("//tr[@ng-repeat='item in cart.items()']/td[1]");
     private By subtotals = By.xpath("//tr[@ng-repeat='item in cart.items()']/td[4]");
+    private By quantities = By.xpath("//tr[@ng-repeat='item in cart.items()']/td[3]/input");
     private By emptyCartButton = By.xpath("//a[@ui-if='cart.getCount() > 0']");
 
     public CheckoutPage (WebDriver driver){
@@ -21,20 +22,36 @@ public class CheckoutPage {
 
     // Get item's name from the list of checkout page
     public List<String> getItems() {
-       return getStringsByColumn(itemNames);
+       return getStringsByColumn(itemNames, GetValueTypeEnum.ByText, "");
     }
 
-    // Get item's subtotal from list of checkout pge
+    // Get item's subtotal from list of checkout page
     public List<String> getSubtotals() {
-        return getStringsByColumn(subtotals);
+        return getStringsByColumn(subtotals, GetValueTypeEnum.ByText, "");
     }
 
-    private List<String> getStringsByColumn(By columnList) {
+    // Get item's quantities from list of checkout pge
+    public List<String> getQuantities() {
+        return getStringsByColumn(quantities, GetValueTypeEnum.ByAttribute, "value");
+    }
+
+    private List<String> getStringsByColumn(By columnList, GetValueTypeEnum valueType, String name) {
         List<String> itemName = new ArrayList<String>();
         List<WebElement> columnListResult = driver.findElements(columnList);
         for (WebElement w : columnListResult) {
-            itemName.add(w.getText().trim());
-            System.out.println(w.getText().trim());
+            String value = new String();
+            switch (valueType) {
+                case ByAttribute:
+                    value = w.getAttribute(name);
+                    break;
+                case ByCss:
+                    value = w.getCssValue(name);
+                    break;
+                default:    // Default to getText
+                    value = w.getText().trim();
+                    break;
+            }
+            itemName.add(value);
         }
         return itemName;
     }

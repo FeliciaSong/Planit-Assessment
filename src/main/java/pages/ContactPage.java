@@ -43,6 +43,7 @@ public class ContactPage {
         // Wait till the progress bar is finished running and hidden - with random time span
         WebDriverWait waitProgressBarToHide = new WebDriverWait(driver, 60);
         waitProgressBarToHide.until(ExpectedConditions.invisibilityOfElementLocated(submitProgressBar));
+
         return new SuccessfulSubmissionPage(driver);
     }
 }

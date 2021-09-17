@@ -13,8 +13,8 @@ import static org.testng.Assert.*;
 
 public class MainTest extends BaseTests {
 
-    @Test(invocationCount = 5) // run test case 1 for 5 times
-    public void testSubmitFeedback(){
+    @Test(invocationCount = 5, priority  = 1)// run test case 1 for 5 times
+    public void testcase1_testSubmitFeedback(){
         // Click Contact link
         ContactPage contactPage = homePage.clickContact();
 
@@ -31,8 +31,8 @@ public class MainTest extends BaseTests {
                 "Message is incorrect");
     }
 
-    @Test
-    public void testCartItems(){
+    @Test (priority = 2)
+    public void testcase2_testCartItems(){
         // Click shop link
         ShopPage shopPage = homePage.clickShop();
 
@@ -56,14 +56,26 @@ public class MainTest extends BaseTests {
             }
         };
 
-        // Assert items' names only.
+        // Get the list of items' quantities from cart
+        List<String> actualQuantities = checkoutPage.getQuantities();
+
+        //Declare expected items quantity
+        List<String> expectedQuantities = new ArrayList<String>() {
+            {
+                add("2");
+                add("1");
+            }
+        };
+
+        // Assert items' names.
         assertEquals(expectedItems, actualItems);
 
-        // TODO: Assert item quantities
+        // Assert items' quantities.
+        assertEquals(expectedQuantities, actualQuantities);
     }
 
-    @Test
-    public void testSubtotal(){
+    @Test (priority = 3)
+    public void testcase3_testSubtotal(){
         // Click shop link
         ShopPage shopPage = homePage.clickShop();
 
